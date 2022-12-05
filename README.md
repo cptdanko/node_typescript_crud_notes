@@ -1,5 +1,6 @@
-# NodeJS Express note taking API using 
-I had never used the yarn package manager before so thought I would give it a try and see what it is like. This is a simple nodejs express API built with typescript to crud notes using the yarn package manager.
+# NodeJS Express note taking API
+ 
+This is a simple nodejs express API built with typescript to crud notes using the yarn package manager.
 
 I will be writing a [blogpost] about my thoughts on building a react app with yarn soon.
 
