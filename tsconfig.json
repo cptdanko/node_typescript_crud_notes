@@ -1,0 +1,13 @@
+{
+    "exclude": [
+        "**/*.spec.ts"
+    ],
+    "compilerOptions": {
+        "target": "es2016",
+        "module": "CommonJS",
+        "outDir": "./dist",
+        "strict": true,
+        "noImplicitAny": true,
+        "esModuleInterop": true
+    }
+}
