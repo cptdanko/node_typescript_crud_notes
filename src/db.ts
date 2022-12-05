@@ -65,6 +65,6 @@ export class DB {
             this.saveNotes(allNotes);
             return { message: "", code: 204 };
         }
-        return { message: "Unable to find a note", code: 404};
+        return { message: `Unable to find a note with id: ${id}`, code: 404};
     }
 }
