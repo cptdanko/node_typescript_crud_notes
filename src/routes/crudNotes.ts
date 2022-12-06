@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { DB, DBResult } from "../db";
+import mockData from "../../mockData";
 
 export interface Note {
     date: Date;
@@ -11,7 +12,7 @@ const db = new DB();
 export function saveNotes(request: Request, response: Response) {
    //validate the note 
    const reqBody = request.body;
-   console.log(reqBody);
+   // console.log(reqBody);
    if(reqBody == null) {
         response.statusCode = 400;
         response.send("Error: a note create request must have a body");
@@ -54,13 +55,27 @@ export function updateNote(request: Request, response: Response) {
 }
 
 export function deleteNote(request: Request, response: Response) {
-    const queryParam = request.query.id;
-    if(!queryParam) {
+    if(request.query == undefined) {
         response.statusCode = 400;
         response.send("No note id param supplied");
+        return;
     }
-    const noteId = Number(request.query.id);
+    const queryParam = request.query.id;
+    const noteId = Number(queryParam);
     const delProcessRes: DBResult = db.deleteNote(noteId);
     response.statusCode = delProcessRes.code;
     response.send(delProcessRes.message);    
+}
+
+export function bulkInsertMockData(request: Request, response: Response) {
+    try {
+        mockData.forEach(note => {
+            db.saveNote(note);
+        });
+        response.statusCode = 200;
+        response.send("Mock data inserted");
+    } catch(e) {
+        response.statusCode = 500;
+        response.send(`Internal server error while trying to insert data \n ${JSON.stringify(e)}`);
+    }
 }

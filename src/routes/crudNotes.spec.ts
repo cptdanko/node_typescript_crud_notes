@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { saveNotes} from "./crudNotes";
+import { deleteNote, saveNotes} from "./crudNotes";
 
 describe("Notes test", () => {
     let mockRequest: Partial<Request>;
@@ -32,5 +32,20 @@ describe("Notes test", () => {
         };
         saveNotes(mockRequest as Request, mockResponse as Response);
         expect(mockResponse.statusCode).toBe(201);
-    })
+    });
+
+    test('400 - no query param id supplied to delete note', () => {
+        const expectedCode = 400;
+        deleteNote(mockRequest as Request, mockResponse as Response);
+        expect(mockResponse.statusCode).toBe(400);
+    });
+    
+    test('400 - note with id does not exist', () => {
+        const expectedCode = 404;
+        mockRequest.query = {};
+        mockRequest.query.id = "3";
+        deleteNote(mockRequest as Request, mockResponse as Response);
+        expect(mockResponse.statusCode).toBe(expectedCode);
+       
+    });
 });

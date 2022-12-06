@@ -14,27 +14,34 @@ export class DB {
     notesStore:string  | null = null;
     
     private _lastId:number = 0;
+
+    localStorage = new LocalStorage("./notes");
     
     getAllNotes(): Note[] {
         let notes: Note[] = [];
-        if(this.notesStore == null) {
-            return [];
+        const notesStr = this.localStorage.getItem(NOTE_KEY) ? this.localStorage.getItem(NOTE_KEY) : null;
+        if(!notesStr) {
+            return notes;
         } else {
-            if(this.notesStore) {
-                notes = JSON.parse(this.notesStore);    
+            if(notesStr) {
+                notes = JSON.parse(notesStr);
             }
         }
-        // const notesStr = localStorage.getItem(NOTE_KEY) ? localStorage.getItem(NOTE_KEY) : null;
-        return notes;
+        if(notes && notes.length > 0) {
+            const lastNoteId = notes[(notes.length - 1)].id ?? 0;
+            this._lastId = lastNoteId;
+        }
+        return notes;``
     }
     saveNotes(allNotes: Note[]) {
         this.notesStore = JSON.stringify(allNotes);
+        this.localStorage.setItem(NOTE_KEY, this.notesStore);
     }
     saveNote(note: Note) {
         const allNotes: Note[] = this.getAllNotes();        
         note.id = this._lastId += 1;
         allNotes.push(note);
-        this.saveNotes(allNotes);
+        this.saveNotes(allNotes); 
         //localStorage.setItem(JSON.stringify(allNotes), NOTE_KEY);
     }
     updateNote(id: number, note: Note): Note | null {

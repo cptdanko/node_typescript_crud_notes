@@ -31,7 +31,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"date\": \"2012-04-23T18:25:43.511Z\",\r\n    \"text\": \"This is a note\",\r\n    \"user\": \"{'name': 'Yakang', 'age': 32}\"\r\n}",
+					"raw": "{\r\n    \"date\": \"2012-04-23T18:25:43.511Z\",\r\n    \"text\": \"This is a note\",\r\n    \"user\": \"{'name': 'Connie', 'age': 32}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -103,6 +103,25 @@
 							"key": "id",
 							"value": "2"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InserMockNotes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/note/insertMock",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"note",
+						"insertMock"
 					]
 				}
 			},

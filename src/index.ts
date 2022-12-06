@@ -1,7 +1,7 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import http from 'http';
-import { deleteNote, getNote, getNotes, saveNotes, updateNote } from './routes/crudNotes';
+import { bulkInsertMockData, deleteNote, getNote, getNotes, saveNotes, updateNote } from './routes/crudNotes';
 import getAllUsers from './routes/getAllUsers';
 const app = express();
 const server = new http.Server(app);
@@ -17,3 +17,4 @@ app.get('/note/all', getNotes);
 app.patch('/note/', updateNote);
 app.delete('/note/', deleteNote);
 app.get("/note/", getNote);
+app.get("/note/insertMock", bulkInsertMockData);
