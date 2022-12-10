@@ -30,15 +30,18 @@ export function getNotes(request: Request, response: Response) {
 }
 
 export function getNote(request: Request, response: Response) { 
-    const queryParams = request.query;
+    const id = request.params && request.params.id;
     
-    if(queryParams == null) {
+    if(!id) {
         response.statusCode = 400;
         response.send("No query params passed, need to pass the id");
+        return;
     }
-    //const searchId = queryParams.id as number;
-    //const notes = db.getAllNotes();
-    //const note = notes.find(elem => elem.id == searchId);
+    const searchId = Number(id);
+    const notes = db.getAllNotes();
+    const note = notes.find(elem => elem.id == searchId);
+    response.statusCode = 200;
+    response.send(note);
 }
 export function updateNote(request: Request, response: Response) {
     const queryId = Number(request.query.id);
