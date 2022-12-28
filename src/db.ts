@@ -1,14 +1,12 @@
 /* global localStorage, */
-import { Console } from 'console';
 import { LocalStorage } from 'node-localstorage';
-import { boolean } from 'yargs';
-import { deleteNote, Note } from './routes/crudNotes';
+import AWS, { AWSError } from 'aws-sdk';
+import { AWSCallback } from './logFuncs/networkresponse';
+import { DeleteItemOutput, GetItemOutput, ScanOutput, UpdateItemOutput } from 'aws-sdk/clients/dynamodb';
+import { DBResult, Note } from './types/customDataTypes';
+import { NOTES_TABLE } from './types/constants';
 
 const NOTE_KEY = 'notes';
-export interface DBResult {
-    message: string;
-    code: number;
-}
 
 export class DB {
     notesStore:string  | null = null;
@@ -16,7 +14,66 @@ export class DB {
     private _lastId:number = 0;
 
     localStorage = new LocalStorage("./notes");
-    
+    regionParam = {region: 'ap-southeast-2'};
+    ddb = new AWS.DynamoDB(this.regionParam);
+    documentClient = new AWS.DynamoDB.DocumentClient(this.regionParam);
+
+    getNotesFromAWS(): Promise<ScanOutput>{
+        const params = {
+            TableName: NOTES_TABLE
+        };
+
+        return this.documentClient.scan(params).promise();
+    }
+    getNoteFromAWS(note_id: string): Promise<GetItemOutput> {
+        const params = {
+            TableName: NOTES_TABLE,
+            Key: {
+                'note_id': note_id
+            }
+        };
+        return this.documentClient.get(params).promise();
+    }
+    saveNoteToAWS(note: Note) {
+        const params = {
+            TableName: NOTES_TABLE,
+            Item: note
+        };
+        this.getNotesFromAWS().then((data:ScanOutput) => {
+            data.Items
+        });
+        this.documentClient.put(params, AWSCallback);
+    }
+    deleteNoteFromAWS(note_id: string): Promise<DeleteItemOutput> {
+        const params = {
+            TableName: NOTES_TABLE,
+            Key: {
+                'note_id': note_id
+            }
+        };
+        return this.documentClient.delete(params).promise();
+    }
+    async updateNoteOnAWS(note_id: string, note: Note): Promise<UpdateItemOutput> {
+        const existingNote = (await this.getNoteFromAWS(note_id)).Item;
+        const params = {
+            TableName: NOTES_TABLE,
+            Key: {
+                'note_id': note_id
+            },
+            UpdateExpression: "set #d1 = :date, #t1 = :t, #u1 = :user",
+            ExpressionAttributeValues: {
+                ":date": note.date ?? existingNote?.date,
+                ":t": note.text ?? existingNote?.text,
+                ":user": note.user ?? existingNote?.user
+            },
+            ExpressionAttributeNames: {
+                "#d1": "date",
+                "#t1": "text",
+                "#u1": "user"
+            }
+        };
+        return this.documentClient.update(params).promise();
+    }
     getAllNotes(): Note[] {
         let notes: Note[] = [];
         const notesStr = this.localStorage.getItem(NOTE_KEY) ? this.localStorage.getItem(NOTE_KEY) : null;
@@ -28,10 +85,10 @@ export class DB {
             }
         }
         if(notes && notes.length > 0) {
-            const lastNoteId = notes[(notes.length - 1)].id ?? 0;
-            this._lastId = lastNoteId;
+            const lastNoteId = notes[(notes.length - 1)].note_id ?? 0;
+            this._lastId = Number(lastNoteId);
         }
-        return notes;``
+        return notes;
     }
     saveNotes(allNotes: Note[]) {
         this.notesStore = JSON.stringify(allNotes);
@@ -39,24 +96,24 @@ export class DB {
     }
     saveNote(note: Note) {
         const allNotes: Note[] = this.getAllNotes();        
-        note.id = this._lastId += 1;
+        note.note_id = `${(this._lastId += 1)}`;
         allNotes.push(note);
-        this.saveNotes(allNotes); 
-        //localStorage.setItem(JSON.stringify(allNotes), NOTE_KEY);
+        this.saveNotes(allNotes);
+        this.saveNoteToAWS(note);
     }
-    updateNote(id: number, note: Note): Note | null {
+    updateNote(id: string, note: Note): Note | null {
         const allNotes: Note[] = this.getAllNotes();        
         let existingNoteIdx: number = 0;
         const existingNote = allNotes.find((temp, idx) => {
-            if(temp.id == id) {
+            if(temp.note_id == id) {
                 existingNoteIdx = idx;
                 return temp;
             }
         });
         if(existingNote) {
-            existingNote.date = note.date;
-            existingNote.text = note.text;
-            existingNote.user = note.user;
+            if(note.date) existingNote.date = note.date;
+            if(note.text) existingNote.text = note.text;
+            if(note.user) existingNote.user = note.user;
             allNotes[existingNoteIdx] = existingNote;
             allNotes.splice(existingNoteIdx, 1, existingNote);
             this.saveNotes(allNotes);
@@ -64,9 +121,9 @@ export class DB {
         }
         return null;
     }
-    deleteNote(id: number): DBResult {
+    deleteNote(id: string): DBResult {
         const allNotes: Note[] = this.getAllNotes();
-        const foundNote = allNotes.find(note => note.id == id);
+        const foundNote = allNotes.find(note => note.note_id == id);
         if(foundNote) {
             allNotes.splice(allNotes.indexOf(foundNote), 1);
             this.saveNotes(allNotes);
