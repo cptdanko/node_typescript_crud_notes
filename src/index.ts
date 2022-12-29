@@ -12,15 +12,19 @@ dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-app.listen(PORT);
+app.listen(PORT, () => {
+    console.log(`Started listening on ${PORT}`);
+});
 //const server = new http.Server(app);
 //server.listen(3000);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+
 app.get("/", (request: Request, response: Response) => {
     response.statusCode = 200;
+    console.log("Started the server");
     response.send({"greeting": "Hello World"})
 });
 
