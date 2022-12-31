@@ -44,7 +44,8 @@ yarn start
 
 # Storage options demonstrated in thie repo
 ### LocalStorage 
-The default storage setting in this repo and if you have worked with localStorage on client-side Javascript then you know exactly how to work with this. 
+The default storage setting in this repo and if you have worked with localStorage on client-side Javascript then you know exactly how to work with this. How this works in NodeJS is that it will create a folder with the name specified, which as you can see on [line 16] of this repo is notes. In that folder it will create a plain text file of the same name wher it will store the data you save.
+
 ### AWS DynamoDB
 If you have worked with NoSQL databases like MongoDB before, then this is Amazon's answer to that. The only thing is that it may take you some time to get famaliar with this. For me, it took me an entire day and an hour the next day to fully integrate CRUD operations for this repo. One way to ensure, this backend works with your AWS account is by adding the following environment variables
 ```sh
@@ -52,6 +53,8 @@ export AWS_ACCESS_KEY_ID=your-access-key-id
 export AWS_SECRET_ACCESS_KEY=your-secret-key
 ```
 Have a look at the [AWS docs] for more on this. You may also want to change the AWS region on [line 17] to the region of your AWS account
+
+**NOTE** Right now, for save functionality, while saving a note, this API will try to save to both localStorage as well as AWS>
 
 # Any help?
 If you have difficulty understanding anything about this repo, feel free to reach out to me through this Github account or at bhuman at mydaytodoDOTcom or bhumanDOTsoniATgmailDOTcom. 
@@ -63,6 +66,7 @@ If you like what I am doing, you can [buy me a coffee]
 
 Click on the next link for more info on the 13+ year [software engineering career journey] of the author.
 
+[line 16]: https://github.com/cptdanko/nodetypescriptcrudnotes/blob/main/src/db.ts#L16
 [my blog]: https://mydaytodo.com/blog/
 [line 17]: https://github.com/cptdanko/nodetypescriptcrudnotes/blob/main/src/db.ts#L17
 [AWS docs]: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html

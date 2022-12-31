@@ -1,24 +1,30 @@
 {
 	"info": {
-		"_postman_id": "de20c15e-f88b-4fac-a996-612438267f48",
+		"_postman_id": "046254bb-3102-461f-8316-08b08166a525",
 		"name": "Notes",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Get All Notes",
+			"name": "Note",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "aws-cloud",
+						"value": "true",
+						"type": "default",
+						"disabled": true
+					}
+				],
 				"url": {
-					"raw": "localhost:3000/note/all",
+					"raw": "{{hostname}}/note/18",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "3000",
 					"path": [
 						"note",
-						"all"
+						"18"
 					]
 				}
 			},
@@ -31,7 +37,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"date\": \"2012-04-23T18:25:43.511Z\",\r\n    \"text\": \"This is a note\",\r\n    \"user\": \"{'name': 'Connie', 'age': 32}\"\r\n}",
+					"raw": "{\r\n    \"date\": \"2012-04-23T18:25:43.511Z\",\r\n    \"text\": \"My first simple note\",\r\n    \"user\": \"{'name': 'Joe Blogs', 'age': '40'}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -39,11 +45,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/note",
+					"raw": "{{hostname}}/note",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "3000",
 					"path": [
 						"note"
 					]
@@ -58,7 +63,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"date\": \"2012-04-23T18:25:43.511Z\",\r\n    \"text\": \"note updated\",\r\n    \"user\": \"{'name': 'Temp', 'age': 34}\"\r\n}",
+					"raw": "{\r\n    \"text\": \"Final test before committing\",\r\n    \"user\": \"{'name': 'Connie', 'age': '32'}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -66,7 +71,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/note?id=2",
+					"raw": "localhost:3000/note?id=18",
 					"host": [
 						"localhost"
 					],
@@ -77,7 +82,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "2"
+							"value": "18"
 						}
 					]
 				}
@@ -90,18 +95,17 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/note?id=2",
+					"raw": "{{hostname}}/note?id=24",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "3000",
 					"path": [
 						"note"
 					],
 					"query": [
 						{
 							"key": "id",
-							"value": "2"
+							"value": "24"
 						}
 					]
 				}
@@ -122,6 +126,146 @@
 					"path": [
 						"note",
 						"insertMock"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Notes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "aws-cloud",
+						"value": "true",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{hostname}}/note/all",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"note",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Note AWS",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "aws-cloud",
+						"value": "true",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{hostname}}/note/18",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"note",
+						"18"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Note AWS",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "aws-cloud",
+						"value": "true",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"text\": \"Final test before committing\",\r\n    \"user\": \"{'name': 'Alan Wake', 'age': '29'}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/note?id=18",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"note"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "18"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Notes AWS",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "aws-cloud",
+						"value": "true",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{hostname}}/note/all",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"note",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Note AWS",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "aws-cloud",
+						"value": "true",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{hostname}}/note?id=24",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"note"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "24"
+						}
 					]
 				}
 			},
