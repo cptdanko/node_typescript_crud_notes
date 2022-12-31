@@ -6,11 +6,11 @@ import { getNews } from './api/news';
 // import { getNews } from './api/news';
 import { bulkInsertMockData, deleteNote, getNote, getNotes, saveNotes, updateNote } from './routes/crudNotes';
 import getAllUsers from './routes/getAllUsers';
-
+import { NotesController } from './notes/notes_controller';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 const app = express();
 app.listen(PORT, () => {
     console.log(`Started listening on ${PORT}`);
@@ -35,6 +35,9 @@ app.get("/ping", (request: Request, response: Response) => {
 
 
 app.get('/users/all', getAllUsers);
+// Updated API's
+app.get('/notes/', NotesController.getAllNotes);
+app.post('/user/id', NotesController.getUserById);
 
 app.post('/note/', saveNotes);
 app.get('/note/all', getNotes);
