@@ -5,7 +5,7 @@ import { getPredifinedUsers } from "./get_all_users";
 export class NotesController{
     
       static getAllNotes(request : Request, response : Response){
-        let allNotes = getAllPredefinedNotes();
+        const allNotes = getAllPredefinedNotes();
         return response.json(allNotes).status(200);
     }   
 
