@@ -6,6 +6,7 @@ import { getNews } from './api/news';
 // import { getNews } from './api/news';
 import { bulkInsertMockData, deleteNote, getNote, getNotes, saveNotes, updateNote } from './routes/crudNotes';
 import getAllUsers from './routes/getAllUsers';
+import { getWeather } from './api/weather';
 
 
 dotenv.config();
@@ -42,5 +43,6 @@ app.patch('/note/', updateNote);
 app.delete('/note/', deleteNote);
 app.get("/note/:id", getNote);
 app.get("/note/insertMock", bulkInsertMockData);
+app.get('/weather', getWeather);
 
 app.get("/news/", getNews);
