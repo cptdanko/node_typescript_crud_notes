@@ -42,6 +42,14 @@ yarn build
 yarn start
 ```
 
+### How to get weather and news
+For the endpoints to fetch news and weather to work, create a .env file in the root directory of this repo and add the variables
+
+```sh
+OPEN_WEATHER_MAP_KEY=your-openweather-map-api-key
+NEWS_CATCHER_KEY=your-newscatcher-map-api-key
+```
+
 # Storage options demonstrated in thie repo
 ### LocalStorage 
 The default storage setting in this repo and if you have worked with localStorage on client-side Javascript then you know exactly how to work with this. How this works in NodeJS is that it will create a folder with the name specified, which as you can see on [line 16] of this repo is notes. In that folder it will create a plain text file of the same name wher it will store the data you save.
