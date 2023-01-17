@@ -7,6 +7,7 @@ import { getWeather } from './api/weather';
 import { deleteTodo, getAllTodo, getTodo, getTodoForUser, saveTodo, searchTodo, updateTodo } from './routes/todoController';
 import { deleteUser, getUser, getUserByEmail, getUsers, saveUser, updateUser } from './routes/userController';
 
+import cors from 'cors';
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.listen(PORT, () => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+app.use(cors());
 
 app.get("/", (request: Request, response: Response) => {
     response.statusCode = 200;
