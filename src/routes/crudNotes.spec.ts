@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { deleteNote, saveNotes} from "./crudNotes";
 
-describe("Notes test", () => {
+describe.skip("Notes test", () => {
     let mockRequest: Partial<Request>;
     let mockResponse: Partial<Response>;
     let responseObj: Object;

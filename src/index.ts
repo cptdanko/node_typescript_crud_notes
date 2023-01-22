@@ -7,11 +7,12 @@ import { getNews } from './api/news';
 import { bulkInsertMockData, deleteNote, getNote, getNotes, saveNotes, updateNote } from './routes/crudNotes';
 import getAllUsers from './routes/getAllUsers';
 import { getWeather } from './api/weather';
+import { deleteTodo, getAllTodo, getTodo, saveTodo, updateTodo } from './routes/crudTodo';
 
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const app = express();
 app.listen(PORT, () => {
     console.log(`Started listening on ${PORT}`);
@@ -43,6 +44,11 @@ app.patch('/note/', updateNote);
 app.delete('/note/', deleteNote);
 app.get("/note/:id", getNote);
 app.get("/note/insertMock", bulkInsertMockData);
-app.get('/weather', getWeather);
 
+app.post("/todo/", saveTodo);
+app.get("/todo/:id", getTodo);
+app.get("/todos/", getAllTodo);
+app.delete("/todo/", deleteTodo);
+app.patch("/todo/", updateTodo);
+app.get('/weather', getWeather);
 app.get("/news/", getNews);

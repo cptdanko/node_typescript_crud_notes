@@ -20,11 +20,15 @@ describe("Users test", () => {
         const expectStatCode = 200;
         const expectResp = [
             {
-                name: "Bhuman",
-                age: 40
+                name: "Ansible",
+                age: "20"
             },
             {
-                name: "Yakang",
+                name: "B-Human",
+                age: "40"
+            },
+            {
+                name: "Kong",
                 age: "32"
             }
         ];
