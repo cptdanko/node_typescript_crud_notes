@@ -1,15 +1,15 @@
 import {
     DeleteItemOutput,
     GetItemOutput,
-    PutItemOutput,
+    QueryOutput,
     ScanOutput,
 } from "aws-sdk/clients/dynamodb";
 import { Request, Response } from "express";
-import { DynamoDB } from "../datastore/aws";
+import { TodoDDB } from "../datastore/ddbTodo";
 import { TODO_PK_SYM } from "../types/constants";
 import { Todo } from "../types/customDataTypes";
 
-const dynamoDb = new DynamoDB();
+const dynamoDb = new TodoDDB();
 
 export async function saveTodo(request: Request, response: Response) {
     //validate the note
@@ -26,7 +26,6 @@ export async function saveTodo(request: Request, response: Response) {
     dynamoDb
         .saveTodoToAWS(todo)
         .then(async (resp) => {
-            console.log(`Save successful`);
             response.statusCode = 201;
             const dbTodo = (await dynamoDb.getTodoById(todo.id!)).Item;
             response.send(dbTodo);
@@ -40,13 +39,13 @@ export async function saveTodo(request: Request, response: Response) {
 }
 
 export function getAllTodo(request: Request, response: Response) {
-    
+    console.log('in get all todos');
     dynamoDb
         .getAllTodo()
         .then((data: ScanOutput) => {
             response.statusCode = 200;
             const returnVal = data.Items ?? {};
-            console.log(JSON.stringify(returnVal));
+            const itemsStr = JSON.stringify(returnVal);
             response.send(returnVal);
         }).catch((err) => {
             console.error(err);
@@ -105,9 +104,6 @@ export async function updateTodo(request: Request, response: Response) {
 }
 
 export async function deleteTodo(request: Request, response: Response) {
-    console.log("In delete todo");
-    console.log(JSON.stringify(request.query));
-
     if (Object.keys(request.query).length == 0 || !request.query.id) {
         response.statusCode = 400;
         response.send("No todo id param supplied");
@@ -130,5 +126,25 @@ export async function deleteTodo(request: Request, response: Response) {
                     response.send(errMsg);
                 });
         }
+    }
+}
+export async function getTodoForUser(request: Request, response: Response) {
+    if (Object.keys(request.query).length == 0 || !request.query.userId) {
+        response.statusCode = 404;
+        response.send("User id not found");
+    } else {
+        const queryParam = request.query.userId as string;
+        dynamoDb.getTodoByUser(queryParam)
+        .then((res: ScanOutput) => {
+            const items = res.Items ?? {};
+            const itemsStr = JSON.stringify(items);
+            response.statusCode = 200;
+            response.send(items);
+        })
+        .catch((err) => {
+            const errMsg = `Failed to retrieve because ${err}`;
+            response.statusCode = 500;
+            response.send(errMsg);
+        });
     }
 }

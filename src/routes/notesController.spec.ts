@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { deleteNote, saveNotes} from "./crudNotes";
+import { deleteNote, saveNotes} from "./notesController";
 
 describe.skip("Notes test", () => {
     let mockRequest: Partial<Request>;
@@ -18,11 +18,14 @@ describe.skip("Notes test", () => {
             body: {
                 "date": "2012-04-23T18:25:43.511Z",
                 "text": "This is a note",
-                "user": "{'name': 'Connie', 'age': 32}"
+                "user": "{'name': 'Connie'}"
             }
         }
     });
 
+    /**
+     * NOTE: to be updated soon
+     */
     test('200 - notes', () => {
         const expectedCode = 200;
         const expectResp = {

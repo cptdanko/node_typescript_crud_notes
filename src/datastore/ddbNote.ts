@@ -1,6 +1,6 @@
 /* global localStorage, */
 import { LocalStorage } from 'node-localstorage';
-import AWS, { AWSError } from 'aws-sdk';
+import AWS from 'aws-sdk';
 import { AWSCallback } from '../logFuncs/networkresponse';
 import { DeleteItemOutput, GetItemOutput, ScanOutput, UpdateItemOutput } from 'aws-sdk/clients/dynamodb';
 import { DBResult, Note, Todo } from '../types/customDataTypes';
@@ -8,7 +8,7 @@ import { NOTES_TABLE } from '../types/constants';
 
 const NOTE_KEY = 'notes';
 
-export class DB {
+export class NotesDB {
     notesStore:string  | null = null;
     
     private _lastId:number = 0;

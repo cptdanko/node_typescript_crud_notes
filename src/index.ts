@@ -1,13 +1,11 @@
 import bodyParser from 'body-parser';
 import express, { Request, Response } from 'express';
-import http from 'http';
 import dotenv from 'dotenv';
 import { getNews } from './api/news';
-// import { getNews } from './api/news';
-import { bulkInsertMockData, deleteNote, getNote, getNotes, saveNotes, updateNote } from './routes/crudNotes';
-import getAllUsers from './routes/getAllUsers';
+import { bulkInsertMockData, deleteNote, getNote, getNotes, saveNotes, updateNote } from './routes/notesController';
 import { getWeather } from './api/weather';
-import { deleteTodo, getAllTodo, getTodo, saveTodo, updateTodo } from './routes/crudTodo';
+import { deleteTodo, getAllTodo, getTodo, getTodoForUser, saveTodo, updateTodo } from './routes/todoController';
+import { deleteUser, getUser, saveUser, updateUser } from './routes/userController';
 
 
 dotenv.config();
@@ -36,19 +34,27 @@ app.get("/ping", (request: Request, response: Response) => {
 });
 
 
-app.get('/users/all', getAllUsers);
+// app.get('/users/all', getAllUsers);
 
 app.post('/note/', saveNotes);
 app.get('/note/all', getNotes);
 app.patch('/note/', updateNote);
 app.delete('/note/', deleteNote);
-app.get("/note/:id", getNote);
-app.get("/note/insertMock", bulkInsertMockData);
+app.get('/note/:id', getNote);
+app.get('/note/insertMock', bulkInsertMockData);
 
-app.post("/todo/", saveTodo);
-app.get("/todo/:id", getTodo);
-app.get("/todos/", getAllTodo);
-app.delete("/todo/", deleteTodo);
-app.patch("/todo/", updateTodo);
+app.post('/todo/', saveTodo);
+app.get('/todo/:id', getTodo);
+app.get('/todos/', getAllTodo);
+app.delete('/todo/', deleteTodo);
+app.patch('/todo/', updateTodo);
+
+app.get('/todos/forUser/', getTodoForUser);
+
 app.get('/weather', getWeather);
-app.get("/news/", getNews);
+app.get('/news/', getNews);
+
+app.post('/user/', saveUser);
+app.get('/user/:id', getUser);
+app.patch('/user/', updateUser);
+app.delete('/user/', deleteUser);

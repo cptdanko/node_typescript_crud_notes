@@ -1,12 +1,15 @@
 import AWS from "aws-sdk";
-import { DeleteItemOutput, GetItemOutput, PutItemOutput, ScanOutput, UpdateItemOutput } from "aws-sdk/clients/dynamodb";
+import { User } from "aws-sdk/clients/budgets";
+import { DeleteItemOutput, GetItemOutput, PutItemOutput, QueryOutput, ScanOutput, UpdateItemOutput } from "aws-sdk/clients/dynamodb";
 import { TODO_TABLE } from "../types/constants";
 import { Todo } from "../types/customDataTypes";
+import { UserDdb } from "./ddbUser";
 
-export class DynamoDB {
+export class TodoDDB {
   regionParam = { region: "ap-southeast-2" };
   ddb = new AWS.DynamoDB(this.regionParam);
   documentClient = new AWS.DynamoDB.DocumentClient(this.regionParam);
+  userDb = new UserDdb();
 
   params = {
     TableName: TODO_TABLE
@@ -74,5 +77,27 @@ export class DynamoDB {
       }
     }
     return this.documentClient.delete(params).promise();
+  }
+
+  /**
+   * While the code below works
+   * DocumentClient.scan is very ineffecient, as such
+   * Improve this as part of another issue
+   * @param userId 
+   * @returns 
+   */
+  async getTodoByUser(userId: string): Promise<QueryOutput> {
+    console.log(`In get todo by user with userid -> ${userId}`);
+    const params = {
+      TableName: TODO_TABLE,
+      FilterExpression: '#userid = :user',
+      ExpressionAttributeNames: {
+        "#userid": "user_id"
+      },
+      ExpressionAttributeValues: {
+        ':user': userId
+      },
+    };
+    return this.documentClient.scan(params).promise();
   }
 }
