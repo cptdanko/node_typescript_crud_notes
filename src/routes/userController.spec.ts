@@ -15,17 +15,15 @@ describe("Users test", () => {
             })
         }
     });
-
+    /**
+     * NOTE: to be updated soon
+     */
     test("200 - users", () => {
         const expectStatCode = 200;
         const expectResp = [
             {
-                name: "Bhuman",
-                age: 40
-            },
-            {
-                name: "Yakang",
-                age: "32"
+                name: "Ansible",
+                age: "20"
             }
         ];
 

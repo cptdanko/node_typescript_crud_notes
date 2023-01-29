@@ -1,12 +1,11 @@
 import { Request, Response } from "express";
-import { DB } from "../db";
+import { NotesDB } from "../datastore/ddbNote";
 import mockData from "../../mockData";
 import { DBResult, Note } from "../types/customDataTypes";
 import { AWS_HEADER_KEY } from "../types/constants";
 import { DeleteItemOutput, GetItemOutput, ScanOutput, UpdateItemOutput } from "aws-sdk/clients/dynamodb";
-import { AWSError } from "aws-sdk";
 
-const db = new DB();
+const db = new NotesDB();
 export function saveNotes(request: Request, response: Response) {
    //validate the note 
    const reqBody = request.body;

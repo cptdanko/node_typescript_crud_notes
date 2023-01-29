@@ -1,14 +1,14 @@
 /* global localStorage, */
 import { LocalStorage } from 'node-localstorage';
-import AWS, { AWSError } from 'aws-sdk';
-import { AWSCallback } from './logFuncs/networkresponse';
+import AWS from 'aws-sdk';
+import { AWSCallback } from '../logFuncs/networkresponse';
 import { DeleteItemOutput, GetItemOutput, ScanOutput, UpdateItemOutput } from 'aws-sdk/clients/dynamodb';
-import { DBResult, Note } from './types/customDataTypes';
-import { NOTES_TABLE } from './types/constants';
+import { DBResult, Note, Todo } from '../types/customDataTypes';
+import { NOTES_TABLE } from '../types/constants';
 
 const NOTE_KEY = 'notes';
 
-export class DB {
+export class NotesDB {
     notesStore:string  | null = null;
     
     private _lastId:number = 0;
@@ -101,6 +101,7 @@ export class DB {
         this.saveNotes(allNotes);
         this.saveNoteToAWS(note);
     }
+    
     updateNote(id: string, note: Note): Note | null {
         const allNotes: Note[] = this.getAllNotes();        
         let existingNoteIdx: number = 0;
