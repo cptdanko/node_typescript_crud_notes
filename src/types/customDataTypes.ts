@@ -3,7 +3,7 @@ import { DeleteItemOutput, GetItemOutput, PutItemOutput, ScanOutput, UpdateItemO
 export interface Note {
     date: Date;
     text: string;
-    user: {};
+    user_id: string;
     note_id: string | null;
 }
 

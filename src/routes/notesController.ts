@@ -2,11 +2,12 @@ import { Request, Response } from "express";
 import { NotesDB } from "../datastore/ddbNote";
 import mockData from "../../mockData";
 import { DBResult, Note } from "../types/customDataTypes";
-import { AWS_HEADER_KEY } from "../types/constants";
+import { AWS_HEADER_KEY, NOTE_PK_SYN } from "../types/constants";
 import { DeleteItemOutput, GetItemOutput, ScanOutput, UpdateItemOutput } from "aws-sdk/clients/dynamodb";
 
 const db = new NotesDB();
 export function saveNotes(request: Request, response: Response) {
+    console.log('In save notes');
    //validate the note 
    const reqBody = request.body;
    // console.log(reqBody);
@@ -15,15 +16,14 @@ export function saveNotes(request: Request, response: Response) {
         response.send("Error: a note create request must have a body");
    }
    const note = reqBody as Note;
+   note.note_id = NOTE_PK_SYN + new Date().getTime();
    db.saveNote(note);
    response.statusCode = 201;
    response.send(note);
 }
 
 export async function getNotes(request: Request, response: Response) {
-    console.log("received get notes request");
     if (request.headers[AWS_HEADER_KEY]) {
-        console.log("Fetching data from aws");
         db.getNotesFromAWS().then((data: ScanOutput) => {
             response.statusCode = 200;
             response.send(data.Items);
@@ -50,7 +50,6 @@ export async function getNote(request: Request, response: Response) {
     }
     const searchId = id;
     if (request.headers[AWS_HEADER_KEY]) {
-        console.log("Fetching note from aws");
         db.getNoteFromAWS(searchId).then((value: GetItemOutput) => {
             response.statusCode = 200;
             response.send(value.Item);
@@ -59,7 +58,6 @@ export async function getNote(request: Request, response: Response) {
             response.send(err);
         })
     } else {
-        console.log("Fetching note from filestore");
         const notes = await db.getAllNotes();
         const note = notes.find((elem:any) => elem.note_id == searchId);
         response.statusCode = 200;
@@ -135,5 +133,26 @@ export function bulkInsertMockData(request: Request, response: Response) {
     } catch(e) {
         response.statusCode = 500;
         response.send(`Internal server error while trying to insert data \n ${JSON.stringify(e)}`);
+    }
+}
+
+export async function getNotesForUser(request: Request, response: Response) {
+    if (Object.keys(request.query).length == 0 || !request.query.userId) {
+        response.statusCode = 404;
+        response.send("User id not found");
+    } else {
+        const queryParam = request.query.userId as string;
+        db.getNotesByUserAWS(queryParam)
+        .then((res: ScanOutput) => {
+            const items = res.Items ?? {};
+            const itemsStr = JSON.stringify(items);
+            response.statusCode = 200;
+            response.send(items);
+        })
+        .catch((err) => {
+            const errMsg = `Failed to retrieve because ${err}`;
+            response.statusCode = 500;
+            response.send(errMsg);
+        });
     }
 }

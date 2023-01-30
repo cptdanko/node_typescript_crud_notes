@@ -2,7 +2,7 @@ import bodyParser from 'body-parser';
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { getNews } from './api/news';
-import { bulkInsertMockData, deleteNote, getNote, getNotes, saveNotes, updateNote } from './routes/notesController';
+import { bulkInsertMockData, deleteNote, getNote, getNotes, getNotesForUser, saveNotes, updateNote } from './routes/notesController';
 import { getWeather } from './api/weather';
 import { deleteTodo, getAllTodo, getTodo, getTodoForUser, saveTodo, updateTodo } from './routes/todoController';
 import { deleteUser, getUser, saveUser, updateUser } from './routes/userController';
@@ -42,6 +42,7 @@ app.patch('/note/', updateNote);
 app.delete('/note/', deleteNote);
 app.get('/note/:id', getNote);
 app.get('/note/insertMock', bulkInsertMockData);
+app.get('/notes/forUser/', getNotesForUser);
 
 app.post('/todo/', saveTodo);
 app.get('/todo/:id', getTodo);
@@ -50,6 +51,7 @@ app.delete('/todo/', deleteTodo);
 app.patch('/todo/', updateTodo);
 
 app.get('/todos/forUser/', getTodoForUser);
+
 
 app.get('/weather', getWeather);
 app.get('/news/', getNews);
