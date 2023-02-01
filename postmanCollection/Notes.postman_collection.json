@@ -1,10 +1,299 @@
 {
 	"info": {
-		"_postman_id": "046254bb-3102-461f-8316-08b08166a525",
+		"_postman_id": "429e4e6e-24ed-487e-b066-b4fe21a858cf",
 		"name": "Notes",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "Todo",
+			"item": [
+				{
+					"name": "Save todo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"I will communicate better\",\r\n    \"done\": \"false\",\r\n    \"date\": \"2023-01-25T12:00:00Z\",\r\n    \"user_id\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/todo",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"todo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update todo",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"My second todo\",\r\n    \"done\": \"false\",\r\n    \"date\": \"2023-01-25T12:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/todo?id=TD_1674370909283",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"todo"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "TD_1674370909283"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete todo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"My first todo\",\r\n    \"done\": \"false\",\r\n    \"date\": \"2023-01-25T12:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/todo",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"todo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Todo",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "aws-cloud",
+								"value": "true",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{hostname}}/todos/",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"todos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todo by user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "aws-cloud",
+								"value": "true",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{hostname}}/todos/forUser?userId=' '",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"todos",
+								"forUser"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "' '"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todo",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "aws-cloud",
+								"value": "true",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{hostname}}/todo/TD_1674383175679",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"todo",
+								"TD_1674383175679"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"temp\",\r\n    \"email\": \"joe.blogs@gmail.com\",\r\n    \"name\": \"Joe Blogs\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/user",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Joe blogs\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/user?userId=USR_1674969782958",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "USR_1674969782958"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "aws-cloud",
+								"value": "true",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{hostname}}/user/USR_1674969782958",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"user",
+								"USR_1674969782958"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"My first todo\",\r\n    \"done\": \"false\",\r\n    \"date\": \"2023-01-25T12:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/user?userId=USR_1674969782958",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "USR_1674969782958"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "Note",
 			"request": {
@@ -37,7 +326,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"date\": \"2012-04-23T18:25:43.511Z\",\r\n    \"text\": \"My first simple note\",\r\n    \"user\": \"{'name': 'Joe Blogs', 'age': '40'}\"\r\n}",
+					"raw": "{\r\n    \"date\": \"2012-04-23T18:25:43.511Z\",\r\n    \"text\": \"This is a really long and detailed note of mine. Let me write it and write it and write an essay\",\r\n    \"user_id\": \"USR_1674965096035\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -45,12 +334,15 @@
 					}
 				},
 				"url": {
-					"raw": "{{hostname}}/note",
+					"raw": "http://localhost:3001/note/",
+					"protocol": "http",
 					"host": [
-						"{{hostname}}"
+						"localhost"
 					],
+					"port": "3001",
 					"path": [
-						"note"
+						"note",
+						""
 					]
 				}
 			},
@@ -150,6 +442,41 @@
 					"path": [
 						"note",
 						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Notes by user",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "aws-cloud",
+						"value": "true",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{hostname}}/notes/forUser?userId=USR_1674965096035",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"notes",
+						"forUser"
+					],
+					"query": [
+						{
+							"key": "aws-cloud",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "userId",
+							"value": "USR_1674965096035"
+						}
 					]
 				}
 			},
