@@ -5,7 +5,7 @@ import { getNews } from './api/news';
 import { bulkInsertMockData, deleteNote, getNote, getNotes, getNotesForUser, saveNotes, updateNote } from './routes/notesController';
 import { getWeather } from './api/weather';
 import { deleteTodo, getAllTodo, getTodo, getTodoForUser, saveTodo, updateTodo } from './routes/todoController';
-import { deleteUser, getUser, saveUser, updateUser } from './routes/userController';
+import { deleteUser, getUser, getUserByEmail, getUsers, saveUser, updateUser } from './routes/userController';
 
 
 dotenv.config();
@@ -57,6 +57,8 @@ app.get('/weather', getWeather);
 app.get('/news/', getNews);
 
 app.post('/user/', saveUser);
+// app.get('/users/', getUsers);
 app.get('/user/:id', getUser);
+app.get('/user/by/email/:email', getUserByEmail);
 app.patch('/user/', updateUser);
 app.delete('/user/', deleteUser);

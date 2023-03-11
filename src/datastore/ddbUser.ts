@@ -1,6 +1,6 @@
 
 import AWS from "aws-sdk";
-import { PutItemOutput, UpdateItemOutput, DeleteItemOutput, ScanOutput, GetItemOutput } from "aws-sdk/clients/dynamodb";
+import { PutItemOutput, UpdateItemOutput, DeleteItemOutput, ScanOutput, GetItemOutput, BatchGetItemOutput, QueryOutput } from "aws-sdk/clients/dynamodb";
 import { USER_TABLE } from "../types/constants";
 import { CRUD, User } from "../types/customDataTypes";
 
@@ -62,6 +62,26 @@ export class UserDdb implements CRUD<User> {
             }
         };
         return this.documentClient.get(getParams).promise();
+    }
+    /**
+     * 
+     * @param email -- query to retrive user by email which is secondary index
+ aws dynamodb query --table-name User     
+ --index-name email-index     
+ --key-condition-expression "email = :v_game"    
+  --expression-attribute-values '{":v_game":{"S":"bhuman.soni@gmail.com"} }'
+     * @returns 
+     */
+    getByEmail(email: string): Promise<QueryOutput> {
+      const getParams = {
+        TableName: this.tableName,
+        IndexName: 'email-index',
+        KeyConditionExpression: "email = :value" ,
+        ExpressionAttributeValues: {
+          ":value": email
+        },
+      };
+      return this.documentClient.query(getParams).promise();
     }
     
 }

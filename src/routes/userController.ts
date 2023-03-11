@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { UserDdb } from "../datastore/ddbUser";
 import { USER_PK_SYN } from "../types/constants";
 import { User } from "../types/customDataTypes";
-import { DeleteItemOutput, GetItemOutput, PutItemOutput, ScanOutput, UpdateItemOutput } from "aws-sdk/clients/dynamodb";
+import { DeleteItemOutput, GetItemOutput, PutItemOutput, QueryOutput, ScanOutput, UpdateItemOutput } from "aws-sdk/clients/dynamodb";
 
 const userDdb = new UserDdb();
 
@@ -45,6 +45,16 @@ export async function getUser(request: Request, response: Response) {
         response.statusCode = 400;
         response.send(err.message);
     });
+}
+export async function getUsers(request: Request, response: Response) {
+    userDdb.getAll().then(data => {
+        response.statusCode = 200;
+        response.send(data.Items);
+    }).catch(err => {
+        console.error(err);
+        response.statusCode = 400;
+        response.send(err.message);
+    })
 }
 
 export async function updateUser(request: Request, response: Response) {
@@ -92,4 +102,23 @@ export async function deleteUser(request: Request, response: Response) {
             });
         }
     }
+}
+
+export async function getUserByEmail(request: Request, response: Response) {
+    const email = request.params && request.params.email;
+    if (!email) {
+        response.statusCode = 400;
+        response.send("No email passed, need email address to retrieve user");
+        return;
+    }
+    userDdb.getByEmail(email)
+    .then((data: QueryOutput) => {
+        response.statusCode = 200;
+        response.send(data.Items);
+    })
+    .catch((err) => {
+        console.error(err);
+        response.statusCode = 400;
+        response.send(err.message);
+    })
 }
