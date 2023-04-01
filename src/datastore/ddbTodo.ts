@@ -87,7 +87,6 @@ export class TodoDDB {
    * @returns 
    */
   async getTodoByUser(userId: string): Promise<QueryOutput> {
-    console.log(`In get todo by user with userid -> ${userId}`);
     const params = {
       TableName: TODO_TABLE,
       FilterExpression: '#userid = :user',
@@ -100,4 +99,12 @@ export class TodoDDB {
     };
     return this.documentClient.scan(params).promise();
   }
+
+  async getMatchingTodo(searchTerm: string, userId: string) {
+    const userTodos = (await this.getTodoByUser(userId)).Items ?? [];
+    const filteredTodo = userTodos.filter(todo => todo.text ? (todo.text as string).indexOf(searchTerm) >= 0 : []);
+    return filteredTodo;
+  }
+  
 }
+ 

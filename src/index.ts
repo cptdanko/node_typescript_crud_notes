@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import { getNews } from './api/news';
 import { bulkInsertMockData, deleteNote, getNote, getNotes, getNotesForUser, saveNotes, updateNote } from './routes/notesController';
 import { getWeather } from './api/weather';
-import { deleteTodo, getAllTodo, getTodo, getTodoForUser, saveTodo, updateTodo } from './routes/todoController';
+import { deleteTodo, getAllTodo, getTodo, getTodoForUser, saveTodo, searchTodo, updateTodo } from './routes/todoController';
 import { deleteUser, getUser, getUserByEmail, getUsers, saveUser, updateUser } from './routes/userController';
 
 
@@ -49,6 +49,7 @@ app.get('/todo/:id', getTodo);
 app.get('/todos/', getAllTodo);
 app.delete('/todo/', deleteTodo);
 app.patch('/todo/', updateTodo);
+app.post('/todo/search', searchTodo);
 
 app.get('/todos/forUser/', getTodoForUser);
 

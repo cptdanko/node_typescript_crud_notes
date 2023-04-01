@@ -4,7 +4,8 @@ import {
     QueryOutput,
     ScanOutput,
 } from "aws-sdk/clients/dynamodb";
-import { Request, Response } from "express";
+import { Request, response, Response } from "express";
+import { request } from "http";
 import { TodoDDB } from "../datastore/ddbTodo";
 import { TODO_PK_SYM } from "../types/constants";
 import { Todo } from "../types/customDataTypes";
@@ -13,7 +14,6 @@ const dynamoDb = new TodoDDB();
 
 export async function saveTodo(request: Request, response: Response) {
     //validate the note
-    console.log(`Received request to crud todo`);
     const reqBody = request.body;
     if (reqBody == null) {
         response.statusCode = 400;
@@ -21,8 +21,6 @@ export async function saveTodo(request: Request, response: Response) {
     }
     const todo = reqBody as Todo;
     todo.id = TODO_PK_SYM + new Date().getTime();
-    console.log(`Todo obj to be saved -> ${JSON.stringify(todo)}`);
-
     dynamoDb
         .saveTodoToAWS(todo)
         .then(async (resp) => {
@@ -39,7 +37,6 @@ export async function saveTodo(request: Request, response: Response) {
 }
 
 export function getAllTodo(request: Request, response: Response) {
-    console.log('in get all todos');
     dynamoDb
         .getAllTodo()
         .then((data: ScanOutput) => {
@@ -147,4 +144,25 @@ export async function getTodoForUser(request: Request, response: Response) {
             response.send(errMsg);
         });
     }
+}
+
+export function searchTodo(request: Request, response: Response) {
+
+    if(!request.body) {
+        response.statusCode = 400;
+        response.send("Search parameters missing");
+    }
+
+    if(typeof request.body.searchText != 'string') {
+        response.statusCode = 422;
+        response.send('Search text must be string');
+    }
+    //do the actual search througn the DB
+    const userid = request.body.userId;
+    const searchText = request.body.searchText;
+    dynamoDb.getMatchingTodo(searchText, userid).then(data => {
+        response.status(200).send(data);
+    }).catch(err => {
+        response.status(500).send(err);
+    });
 }
