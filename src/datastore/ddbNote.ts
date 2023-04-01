@@ -117,8 +117,6 @@ export class NotesDB {
     }
     saveNote(note: Note) {
         const allNotes: Note[] = this.getAllNotes();
-        console.log(note);
-        // note.note_id = `${(this._lastId += 1)}`;
         allNotes.push(note);
         this.saveNotes(allNotes);
         this.saveNoteToAWS(note);

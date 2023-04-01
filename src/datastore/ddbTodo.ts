@@ -1,6 +1,6 @@
 import AWS from "aws-sdk";
-import { User } from "aws-sdk/clients/budgets";
 import { DeleteItemOutput, GetItemOutput, PutItemOutput, QueryOutput, ScanOutput, UpdateItemOutput } from "aws-sdk/clients/dynamodb";
+import path from "path";
 import { TODO_TABLE } from "../types/constants";
 import { Todo } from "../types/customDataTypes";
 import { UserDdb } from "./ddbUser";
@@ -22,6 +22,7 @@ export class TodoDDB {
         TableName: TODO_TABLE,
         Item: todo
     };
+    console.log(path.dirname);
     return this.documentClient.put(params).promise();
   }
 

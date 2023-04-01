@@ -8,7 +8,6 @@ const userDdb = new UserDdb();
 
 export function saveUser(request: Request, response: Response) {
 
-    console.log("request to save user");
     const reqBody = request.body;
     if (reqBody == null) {
         response.statusCode = 400;
