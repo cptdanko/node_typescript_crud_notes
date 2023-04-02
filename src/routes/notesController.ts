@@ -7,7 +7,6 @@ import { DeleteItemOutput, GetItemOutput, ScanOutput, UpdateItemOutput } from "a
 
 const db = new NotesDB();
 export function saveNotes(request: Request, response: Response) {
-    console.log('In save notes');
    //validate the note 
    const reqBody = request.body;
    // console.log(reqBody);
@@ -105,7 +104,6 @@ export async function deleteNote(request: Request, response: Response) {
             response.send("Note with id note found");
         } else {
             db.deleteNoteFromAWS(queryParam).then((res: DeleteItemOutput) => {
-                console.log(res);
                 response.statusCode = 204;
                 response.send(res);
             }).catch(err => {
