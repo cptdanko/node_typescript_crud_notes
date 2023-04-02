@@ -23,11 +23,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 // can this be an interceptor?
 app.use((request, response, next) => {
-    if(!request.headers["x-api-key"] ||
-    request.headers["x-api-key"] != process.env.API_KEY ) {
-        response.status(401).send("You are not authorised to access this!");
-    } else {
+    console.log(request.path);
+    if(request.path == "/" || request.path.indexOf('ping') >= 0) {
         next();
+    } else {
+        if(!request.headers["x-api-key"] ||
+        request.headers["x-api-key"] != process.env.API_KEY ) {
+            response.status(401).send("You are not authorised to access this!");
+        } else {
+            next();
+        }
+
     }
 })
 
