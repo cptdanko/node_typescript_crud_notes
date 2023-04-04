@@ -5,14 +5,14 @@ import { getNews } from './api/news';
 import { bulkInsertMockData, deleteNote, getNote, getNotes, getNotesForUser, saveNotes, updateNote } from './routes/notesController';
 import { getWeather } from './api/weather';
 import { deleteTodo, getAllTodo, getTodo, getTodoForUser, saveTodo, searchTodo, updateTodo } from './routes/todoController';
-import { deleteUser, getUser, getUserByEmail, getUsers, saveUser, updateUser } from './routes/userController';
+import { deleteUser, getUser, getUserByEmail, saveUser, updateUser } from './routes/userController';
 
 import cors from 'cors';
 
 dotenv.config();
 
 const PORT = process.env.PORT || 3001;
-const app = express();
+export const app = express()
 app.listen(PORT, () => {
     console.log(`Started listening on ${PORT}`);
 });
@@ -65,3 +65,5 @@ app.get('/user/:id', getUser);
 app.get('/user/by/email/:email', getUserByEmail);
 app.patch('/user/', updateUser);
 app.delete('/user/', deleteUser);
+
+// module.exports = app;

@@ -22,7 +22,6 @@ export class TodoDDB {
         TableName: TODO_TABLE,
         Item: todo
     };
-    console.log(path.dirname);
     return this.documentClient.put(params).promise();
   }
 
