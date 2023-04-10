@@ -1,7 +1,9 @@
 # NodeJS Express note taking API
  A backend, REST API for a note taking app built with NodeJS, Express and Typescript with multiple storage options. In this repo data can be saved to both localStorage and AWS DynamoDB.
 
-I will be writing a [blogpost] about my thoughts on building a react app with yarn soon.
+# Current deployment of UI+Backend on AWS
+This repo refers to My Day Todos Backend
+![mydaytodosBE drawio](https://user-images.githubusercontent.com/919243/230911384-8d74a2bd-3079-45c7-be87-2bc5bf3337c7.png)
 
 ## Repo features ...
 This repo has the following features
@@ -72,7 +74,7 @@ I will be writing a detailed tutorial on how to work with this repo on my blog. 
 
 If you like what I am doing, you can [buy me a coffee]
 
-Click on the next link for more info on the 13+ year [software engineering career journey] of the author.
+Click on the next link for more info on the [software engineering career journey] of the author.
 
 [line 16]: https://github.com/cptdanko/nodetypescriptcrudnotes/blob/main/src/db.ts#L16
 [my blog]: https://mydaytodo.com/blog/
