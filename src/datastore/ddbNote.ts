@@ -35,15 +35,14 @@ export class NotesDB {
         return this.documentClient.get(params).promise();
     }
     saveNoteToAWS(note: Note) {
-        console.log('In save notes AWS');
         const params = {
             TableName: NOTES_TABLE,
             Item: note
         };
-        this.getNotesFromAWS().then((data: ScanOutput) => {
+        /*this.getNotesFromAWS().then((data: ScanOutput) => {
             data.Items
-        });
-        this.documentClient.put(params, AWSCallback);
+        });*/
+        return this.documentClient.put(params).promise();
     }
     deleteNoteFromAWS(note_id: string): Promise<DeleteItemOutput> {
         const params = {

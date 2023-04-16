@@ -10,7 +10,7 @@ import {
 import {USER_TABLE} from "../types/constants";
 import {CRUD, User} from "../types/customDataTypes";
 
-export class UserDdb implements CRUD < User > {
+export class UserDdb implements CRUD <User> {
     tableName : string = USER_TABLE;
 
     regionParam = {
@@ -19,7 +19,7 @@ export class UserDdb implements CRUD < User > {
     ddb = new AWS.DynamoDB(this.regionParam);
     documentClient = new AWS.DynamoDB.DocumentClient(this.regionParam);
 
-    create(data : User): Promise < PutItemOutput > {
+    create(data : User): Promise <PutItemOutput> {
         const params = {
             TableName: this.tableName,
             Item: data

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UserDdb } from "../datastore/ddbUser";
-import { USER_PK_SYN } from "../types/constants";
+import { USER_PK_SYM } from "../types/constants";
 import { User } from "../types/customDataTypes";
 import { DeleteItemOutput, GetItemOutput, QueryOutput,} from "aws-sdk/clients/dynamodb";
 
@@ -14,7 +14,7 @@ export function saveUser(request: Request, response: Response) {
         return;
     }
     const user = request.body as User;
-    user.user_id = USER_PK_SYN + new Date().getTime();
+    user.user_id = USER_PK_SYM + new Date().getTime();
     userDdb.create(user)
     .then(async (resp) => {
         response.statusCode = 201;
@@ -102,7 +102,6 @@ export async function deleteUser(request: Request, response: Response) {
         response.statusCode = 500;
         response.send(errMsg);
     });
-    console.log("After delete");
 }
 
 export async function getUserByEmail(request: Request, response: Response) {

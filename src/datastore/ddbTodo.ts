@@ -1,6 +1,5 @@
 import AWS from "aws-sdk";
 import { DeleteItemOutput, GetItemOutput, PutItemOutput, QueryOutput, ScanOutput, UpdateItemOutput } from "aws-sdk/clients/dynamodb";
-import path from "path";
 import { TODO_TABLE } from "../types/constants";
 import { Todo } from "../types/customDataTypes";
 import { UserDdb } from "./ddbUser";
