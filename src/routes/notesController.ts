@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { NotesDB } from "../datastore/ddbNote";
 import mockData from "../../mockData";
 import { DBResult, Note } from "../types/customDataTypes";
-import { AWS_HEADER_KEY, NOTE_PK_SYN } from "../types/constants";
+import { AWS_HEADER_KEY, NOTE_PK_SYM } from "../types/constants";
 import { DeleteItemOutput, GetItemOutput, ScanOutput, UpdateItemOutput } from "aws-sdk/clients/dynamodb";
 
 const db = new NotesDB();
@@ -16,7 +16,7 @@ export function saveNotes(request: Request, response: Response) {
         return;
    }
    const note = reqBody as Note;
-   note.note_id = NOTE_PK_SYN + new Date().getTime();
+   note.note_id = NOTE_PK_SYM + new Date().getTime();
    db.saveNote(note);
    response.statusCode = 201;
    response.send(note);
