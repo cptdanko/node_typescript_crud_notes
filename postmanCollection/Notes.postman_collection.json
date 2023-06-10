@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c3421214-81af-4d66-95cb-4a8f202f65b1",
+		"_postman_id": "046254bb-3102-461f-8316-08b08166a525",
 		"name": "Notes",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -9,13 +9,13 @@
 			"name": "Todo",
 			"item": [
 				{
-					"name": "Create todo",
+					"name": "Save todo",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"text\": \"Creating Indexes in DynamoDB\",\r\n    \"done\": \"false\",\r\n    \"date\": \"2023-01-25T12:00:00Z\",\r\n    \"user_id\": \"\"\r\n}",
+							"raw": "{\r\n    \"text\": \"I will communicate better\",\r\n    \"done\": \"false\",\r\n    \"date\": \"2023-01-25T12:00:00Z\",\r\n    \"user_id\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -41,7 +41,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"text\": \"Updated the todo\",\r\n    \"done\": \"false\",\r\n    \"date\": \"2023-01-25T12:00:00Z\"\r\n}",
+							"raw": "{\r\n    \"text\": \"My second todo\",\r\n    \"done\": \"false\",\r\n    \"date\": \"2023-01-25T12:00:00Z\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -49,7 +49,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{hostname}}/todo?id=TD_1680387428528",
+							"raw": "{{hostname}}/todo?id=TD_1674370909283",
 							"host": [
 								"{{hostname}}"
 							],
@@ -59,7 +59,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "TD_1680387428528"
+									"value": "TD_1674370909283"
 								}
 							]
 						}
@@ -101,12 +101,20 @@
 								"key": "aws-cloud",
 								"value": "true",
 								"type": "default"
+							},
+							{
+								"key": "x-api-key",
+								"value": "70e7e640-d223-4955-b86a-6d9da01211df",
+								"type": "default"
 							}
 						],
 						"url": {
-							"raw": "{{hostname}}/todos/",
+							"raw": "https://api.mydaytodos.com/todos/",
+							"protocol": "https",
 							"host": [
-								"{{hostname}}"
+								"api",
+								"mydaytodos",
+								"com"
 							],
 							"path": [
 								"todos",
@@ -129,7 +137,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{hostname}}/todos/forUser?userId=''",
+							"raw": "{{hostname}}/todos/forUser?userId=' '",
 							"host": [
 								"{{hostname}}"
 							],
@@ -140,7 +148,7 @@
 							"query": [
 								{
 									"key": "userId",
-									"value": "''"
+									"value": "' '"
 								}
 							]
 						}
@@ -160,40 +168,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{hostname}}/todo/TD_1680332540664",
+							"raw": "{{hostname}}/todo/TD_1674383175679",
 							"host": [
 								"{{hostname}}"
 							],
 							"path": [
 								"todo",
-								"TD_1680332540664"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Search Todo",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userId\": \"\",\r\n    \"searchText\": \"Updated\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{hostname}}/todo/search",
-							"host": [
-								"{{hostname}}"
-							],
-							"path": [
-								"todo",
-								"search"
+								"TD_1674383175679"
 							]
 						}
 					},
@@ -211,7 +192,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"aws\",\r\n    \"email\": \"aws@mydaytodo.com\",\r\n    \"name\": \"AWS Dashboard\"\r\n}",
+							"raw": "{\r\n    \"username\": \"temp\",\r\n    \"email\": \"joe.blogs@gmail.com\",\r\n    \"name\": \"Joe Blogs\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -237,7 +218,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"aws@mydaytodo.com\",\r\n    \"name\": \"AWS User\"\r\n}",
+							"raw": "{\r\n    \"username\": \"Joe blogs\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -245,7 +226,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{hostname}}/user?userId=''",
+							"raw": "{{hostname}}/user?userId=USR_1674969782958",
 							"host": [
 								"{{hostname}}"
 							],
@@ -255,7 +236,7 @@
 							"query": [
 								{
 									"key": "userId",
-									"value": "''"
+									"value": "USR_1674969782958"
 								}
 							]
 						}
@@ -275,13 +256,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{hostname}}/user/''",
+							"raw": "{{hostname}}/user/USR_1674969782958",
 							"host": [
 								"{{hostname}}"
 							],
 							"path": [
 								"user",
-								"''"
+								"USR_1674969782958"
 							]
 						}
 					},
@@ -302,7 +283,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{hostname}}/user?userId=''",
+							"raw": "{{hostname}}/user?userId=USR_1674969782958",
 							"host": [
 								"{{hostname}}"
 							],
@@ -312,8 +293,123 @@
 							"query": [
 								{
 									"key": "userId",
-									"value": "''"
+									"value": "USR_1674969782958"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User By Email",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "aws-cloud",
+								"value": "true",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{hostname}}/user/by/email/joe.blogs@gmail.com",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"user",
+								"by",
+								"email",
+								"joe.blogs@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User By Email Copy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "aws-cloud",
+								"value": "true",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{hostname}}/user/by/email/joe.blogs@gmail.com",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"user",
+								"by",
+								"email",
+								"joe.blogs@gmail.com"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ExchangeRates",
+			"item": [
+				{
+					"name": "Default",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/exchangerate",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"exchangerate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ExchangeRate For",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/exchangerate/usd",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"exchangerate",
+								"usd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Convert Amount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/convert/aud/100/to/inr",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"convert",
+								"aud",
+								"100",
+								"to",
+								"inr"
 							]
 						}
 					},
@@ -353,7 +449,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"date\": \"2012-04-23T18:25:43.511Z\",\r\n    \"text\": \"This is a really long and detailed note of mine. Let me write it and write it and write an essay\",\r\n    \"user_id\": \"\"\r\n}",
+					"raw": "{\r\n    \"date\": \"2012-04-23T18:25:43.511Z\",\r\n    \"text\": \"My first simple note\",\r\n    \"user\": \"{'name': 'Joe Blogs', 'age': '40'}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -361,15 +457,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3001/note/",
-					"protocol": "http",
+					"raw": "{{hostname}}/note",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "3001",
 					"path": [
-						"note",
-						""
+						"note"
 					]
 				}
 			},
@@ -454,13 +547,7 @@
 			"name": "All Notes",
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "aws-cloud",
-						"value": "true",
-						"type": "default"
-					}
-				],
+				"header": [],
 				"url": {
 					"raw": "{{hostname}}/note/all",
 					"host": [
@@ -469,41 +556,6 @@
 					"path": [
 						"note",
 						"all"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Notes by user",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "aws-cloud",
-						"value": "true",
-						"type": "default"
-					}
-				],
-				"url": {
-					"raw": "{{hostname}}/notes/forUser?userId=''",
-					"host": [
-						"{{hostname}}"
-					],
-					"path": [
-						"notes",
-						"forUser"
-					],
-					"query": [
-						{
-							"key": "aws-cloud",
-							"value": "true",
-							"disabled": true
-						},
-						{
-							"key": "userId",
-							"value": "''"
-						}
 					]
 				}
 			},

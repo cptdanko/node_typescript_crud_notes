@@ -8,6 +8,7 @@ import { deleteTodo, getAllTodo, getTodo, getTodoForUser, saveTodo, searchTodo, 
 import { deleteUser, getUser, getUserByEmail, saveUser, updateUser } from './routes/userController';
 
 import cors from 'cors';
+import { convertAmount, getDefaultExchangeRates, getExchangeRateFor } from './api/currency';
 
 dotenv.config();
 
@@ -66,4 +67,9 @@ app.get('/user/by/email/:email', getUserByEmail);
 app.patch('/user/', updateUser);
 app.delete('/user/', deleteUser);
 
+// currency
+
+app.get('/exchangerate/', getDefaultExchangeRates);
+app.get('/exchangerate/:country_code', getExchangeRateFor);
+app.get('/convert/:from_code/:amount/to/:to_code', convertAmount);
 // module.exports = app;

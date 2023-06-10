@@ -122,3 +122,18 @@ export async function getUserByEmail(request: Request, response: Response) {
         response.send(err.message);
     })
 }
+
+/*export async function gitHubLogin(request: Request, response: Response) {
+    const CLIENT_ID = process.env.GITHUB_CLIENT_ID;
+    const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
+    const GITHUB_URL = "https://github.com/login/oauth/access_token";
+    const url = `${GITHUB_URL}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${request.query.code}`;
+    const networkCall = await fetch(url, {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'}
+    });
+    const jsonResp = await networkCall.json();
+    console.log('In the error response');
+    console.log(jsonResp);
+    return jsonResp;
+}*/
